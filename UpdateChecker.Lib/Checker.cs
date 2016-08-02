@@ -1,59 +1,87 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace UpdateChecker.Lib
 {
+    public enum Status
+    {
+        FIRST_QUERY,        // first request to app
+        NO_CHANGES,         // both sites are identical
+        CHANGED,            // site has changed
+        DIFFERENT,          // different site was requested
+        CONNECTION_ERROR,
+        FILE_ERROR
+    }
+
     public class Checker
     {
         string filePath;
         FileHandler fileHandler;
+        public string Url { get; set; }
 
         public Checker()
         {
             filePath = "database.data";
             fileHandler = new FileHandler();
         }
-
-        public string Url { get; set; }
         
-        public bool Check(string url)
+        public async Task<Status> Check(string url)
         {
-            string page = DownloadPage(url);
-            Page newPage = new Page(DateTime.Now, page);
-            
-            bool arePagesIdentical = ComparePages(newPage);
+            string page = await DownloadPage(url);
+            if (page == null)
+                return Status.CONNECTION_ERROR;
+
+            Page newPage = new Page(DateTime.Now, url, page);
+
+            Status arePagesIdentical = ComparePages(newPage);
 
             fileHandler.Save(filePath, newPage);
 
             return arePagesIdentical;
         }
 
-        private string DownloadPage(string url)
+        private async Task<string> DownloadPage(string url)
         {
-            WebClient client = new WebClient();
-            client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
-
-            using (Stream data = client.OpenRead(url))
+            try
             {
-                using (StreamReader reader = new StreamReader(data))
+                WebClient client = new WebClient();
+                client.Headers.Add("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.2; .NET CLR 1.0.3705;)");
+
+                using (Stream data = await client.OpenReadTaskAsync(url))
                 {
-                    return reader.ReadToEnd();
+                    using (StreamReader reader = new StreamReader(data))
+                    {
+                        return reader.ReadToEnd();
+                    }
                 }
+            }
+            catch (WebException e)
+            {
+                return null;
             }
         }
 
-        private bool ComparePages(Page page)
+        private Status ComparePages(Page page)
         {
             Page lastPage = (Page)fileHandler.Read(filePath);
             if (lastPage == null)
             {
                 fileHandler.Save(filePath, page);
-                return false;
+                return Status.FIRST_QUERY;
+            }
+            else if (page.Url != lastPage.Url)
+            {
+                return Status.DIFFERENT;
+            }
+            else if (page.PageHtml != lastPage.PageHtml)
+            {
+                return Status.CHANGED;
             }
             else
             {
-                return lastPage.PageHtml == page.PageHtml;
+                return Status.NO_CHANGES;
             }
         }
     }

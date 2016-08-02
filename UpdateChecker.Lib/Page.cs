@@ -9,13 +9,15 @@ namespace UpdateChecker.Lib
     [Serializable]
     class Page
     {
-        public Page(DateTime date, string pageHtml)
+        public Page(DateTime date, string url, string pageHtml)
         {
             Date = date;
+            Url = url;
             PageHtml = pageHtml;
         }
 
         public DateTime Date { get; set; }
+        public string Url { get; set; }
         public string PageHtml { get; set; }
     }
 }
