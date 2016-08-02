@@ -33,10 +33,11 @@ namespace UpdateChecker.Lib
             if (page == null)
                 return Status.CONNECTION_ERROR;
 
-            Page newPage = new Page(DateTime.Now, url, page);
+            DateTime now = DateTime.Now;
+            Page newPage = new Page(now, url, page);
 
             Status arePagesIdentical = ComparePages(newPage);
-
+            
             fileHandler.Save(filePath, newPage);
 
             return arePagesIdentical;
@@ -66,9 +67,9 @@ namespace UpdateChecker.Lib
         private Status ComparePages(Page page)
         {
             Page lastPage = (Page)fileHandler.Read(filePath);
+
             if (lastPage == null)
             {
-                fileHandler.Save(filePath, page);
                 return Status.FIRST_QUERY;
             }
             else if (page.Url != lastPage.Url)

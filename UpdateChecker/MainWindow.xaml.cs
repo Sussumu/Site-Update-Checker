@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using UpdateChecker.Lib;
@@ -27,7 +28,12 @@ namespace UpdateChecker
         {
             labelResult.Content = status;
         }
-        
+
+        private void SetUpdateDate(string date)
+        {
+            labelInfo.Content = date;
+        }
+
         private void SetLoadingImage(bool need)
         {
             if (need)
@@ -41,7 +47,7 @@ namespace UpdateChecker
                 loadingImage.Stop();
             }
         }
-
+        
         private async void buttonCheck_Click(object sender, RoutedEventArgs e)
         {
             SetLoadingImage(true);
@@ -67,6 +73,19 @@ namespace UpdateChecker
                     break;
             }
             SetLoadingImage(false);
+            SetUpdateDate(DateTime.Now.ToString());
+        }
+
+        private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
+
+        private void configButton_Click(object sender, RoutedEventArgs e)
+        {
+            Config configWindow = new Config();
+            configWindow.Show();
         }
 
         private void buttonClose_Click(object sender, RoutedEventArgs e)
