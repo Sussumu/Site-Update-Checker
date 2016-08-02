@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace UpdateChecker.Lib
 {
-    class FileHandler
+    static public class FileHandler
     {
-        public bool Save(string path, object file)
+        static public bool Save(string path, object file)
         {
             using (FileStream stream = File.Open(path, FileMode.Create))
             {
@@ -27,7 +27,7 @@ namespace UpdateChecker.Lib
             }
         }
 
-        public object Read(string path)
+        static public object Read(string path)
         {
             object obj = null;
             try

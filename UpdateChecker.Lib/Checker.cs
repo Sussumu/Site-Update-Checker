@@ -11,20 +11,18 @@ namespace UpdateChecker.Lib
         NO_CHANGES,         // both sites are identical
         CHANGED,            // site has changed
         DIFFERENT,          // different site was requested
-        CONNECTION_ERROR,
-        FILE_ERROR
+        CONNECTION_ERROR,   // Internet error
+        FILE_ERROR          // file r/w permission error
     }
 
     public class Checker
     {
         string filePath;
-        FileHandler fileHandler;
         public string Url { get; set; }
 
         public Checker()
         {
             filePath = "database.data";
-            fileHandler = new FileHandler();
         }
         
         public async Task<Status> Check(string url)
@@ -32,13 +30,12 @@ namespace UpdateChecker.Lib
             string page = await DownloadPage(url);
             if (page == null)
                 return Status.CONNECTION_ERROR;
-
-            DateTime now = DateTime.Now;
-            Page newPage = new Page(now, url, page);
+            
+            Page newPage = new Page(DateTime.Now, url, page);
 
             Status arePagesIdentical = ComparePages(newPage);
             
-            fileHandler.Save(filePath, newPage);
+            FileHandler.Save(filePath, newPage);
 
             return arePagesIdentical;
         }
@@ -66,7 +63,7 @@ namespace UpdateChecker.Lib
 
         private Status ComparePages(Page page)
         {
-            Page lastPage = (Page)fileHandler.Read(filePath);
+            Page lastPage = (Page)FileHandler.Read(filePath);
 
             if (lastPage == null)
             {

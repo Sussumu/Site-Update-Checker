@@ -27,6 +27,7 @@
         </Button>
         <Label x:Name="labelInfo" Content="" HorizontalAlignment="Left" Margin="119,226,0,0" VerticalAlignment="Top" Width="341" Foreground="#FF474747" BorderBrush="#00000000" FontSize="14" FontFamily="Roboto"/>
         <Label x:Name="labelInfo2" Content="Last update:" HorizontalAlignment="Left" Margin="30,226,0,0" VerticalAlignment="Top" Width="89" Foreground="#FF474747" FontFamily="Roboto" FontSize="14"/>
+        <Label x:Name="labelTop" Content="Update Checker" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FFBDBDBD" FontFamily="Roboto" FontSize="14" Width="111"/>
     </Grid>
 </Window>
     
