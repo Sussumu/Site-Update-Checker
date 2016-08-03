@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
 using UpdateChecker.Lib;
 
@@ -25,34 +26,38 @@ namespace UpdateChecker
         }
 
         #region GUI
-        
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-                this.DragMove();
-        }
-           
+
         private void config_Changed(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             _config.UpdateInterval = float.Parse(textBoxUpdateTime.Text);
             FileHandler.Save("config.data", _config);
         }
-        
+
         private void config_Changed(object sender, RoutedEventArgs e)
         {
             if (sender == checkBoxStartWindows)
             {
-                _config.StartWithWindows = checkBoxStartWindows.IsEnabled;
+                _config.StartWithWindows = checkBoxStartWindows.IsChecked.Value;
+                if (checkBoxStartWindows.IsChecked.Value)
+                    Utils.CreateShortcutStartWithWindows("UpdateChecker");
+                else
+                    Utils.EraseFile(Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "//UpdateChecker.lnk");
             }
             else if (sender == checkBoxMinimizeToTray)
             {
-                _config.MinimizeToTray = checkBoxMinimizeToTray.IsEnabled;
+                _config.MinimizeToTray = checkBoxMinimizeToTray.IsChecked.Value;
             }
             else if (sender == checkBoxUpdate)
             {
-                _config.Timer = checkBoxUpdate.IsEnabled;
+                _config.Timer = checkBoxUpdate.IsChecked.Value;
             }
             FileHandler.Save("config.data", _config);
+        }
+
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                DragMove();
         }
 
         private void buttonClose_Click(object sender, RoutedEventArgs e)

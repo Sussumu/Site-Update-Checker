@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Timers;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -20,7 +19,6 @@ namespace UpdateChecker
             checker = new Checker();
             
             LoadConfig();
-            ConfigTimer(config.Timer); 
         }
 
         public void LoadConfig()
@@ -38,8 +36,9 @@ namespace UpdateChecker
 
                 FileHandler.Save("config.data", config);
             }
+            ConfigTimer(config.Timer);
         }
-        
+
         private async void Check()
         {
             SetLoadingImage(true);
@@ -73,7 +72,7 @@ namespace UpdateChecker
             SetUpdateDate(DateTime.Now.ToString());
             SetLoadingImage(false);
         }
-
+        
         #region Timer
 
         private void ConfigTimer(bool enabled)
