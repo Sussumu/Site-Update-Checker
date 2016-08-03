@@ -32,7 +32,13 @@
         <Label x:Name="labelInfo" Content="" HorizontalAlignment="Left" Margin="119,226,0,0" VerticalAlignment="Top" Width="341" Foreground="#FF474747" BorderBrush="#00000000" FontSize="14" FontFamily="Roboto" Grid.ColumnSpan="2"/>
         <Label x:Name="labelInfo2" Content="Last update:" HorizontalAlignment="Left" Margin="30,226,0,0" VerticalAlignment="Top" Width="89" Foreground="#FF474747" FontFamily="Roboto" FontSize="14"/>
         <Label x:Name="labelTop" Content="Update Checker" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FFBDBDBD" FontFamily="Roboto" FontSize="14" Width="111"/>
-        <Button x:Name="buttonMinimize" Style="{StaticResource buttonStyle}" Focusable="False" HorizontalAlignment="Left" Margin="182.204,0,0,0" VerticalAlignment="Top" Width="22" Height="22" Click="buttonMinimize_Click" Background="#FFB4DCDE" Grid.Column="1"/>
+        <Button x:Name="buttonMinimize" Style="{StaticResource buttonStyle}" Focusable="False" HorizontalAlignment="Left" Margin="182.204,0,0,0" VerticalAlignment="Top" Width="22" Height="22" Click="buttonMinimize_Click" Background="#FFC7C7C7" Grid.Column="1"/>
+        <MediaElement x:Name="timeRemainingImage" UnloadedBehavior="Manual" LoadedBehavior="Play" HorizontalAlignment="Left" Height="18" Margin="39,159,0,0" VerticalAlignment="Top" Width="18" Stretch="Uniform" RenderTransformOrigin="0.278,1.944">
+            <MediaElement.OpacityMask>
+                <ImageBrush ImageSource="Resources/hourglass.png"/>
+            </MediaElement.OpacityMask>
+        </MediaElement>
+        <Label x:Name="labelTimeRemaining" Content="-" HorizontalAlignment="Left" Margin="57,156,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF474747" FontFamily="Roboto" FontSize="14" Width="36"/>
     </Grid>
 </Window>
     

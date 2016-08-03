@@ -15,13 +15,14 @@ namespace UpdateChecker
         DispatcherTimer timerAutoUpdate;
         Config config;
         NotifyIcon notifyIcon;
+        ToastWindow toast;
 
         public MainWindow()
         {
             InitializeComponent();
             checker = new Checker();
-            
-            LoadConfig();
+
+            LoadConfig();                   // auto update timer is handled here
             ConfigMinimizeToTray();
         }
         
@@ -41,6 +42,7 @@ namespace UpdateChecker
                 case Status.CHANGED:
                     SetStatus("Website has changed!");
                     SetStatusColor(System.Windows.Media.Color.FromRgb(137, 176, 59));
+                    toast = new ToastWindow("Website has changed!");
                     break;
                 case Status.NO_CHANGES:
                     SetStatus("Website still the same.");
@@ -56,6 +58,7 @@ namespace UpdateChecker
                     break;
             }
             SetUpdateDate(DateTime.Now.ToString());
+            ConfigTimer(config.Timer);          // resets the counter (I prefer this way but it can be disabled)
             SetLoadingImage(false);
         }
 
@@ -71,7 +74,7 @@ namespace UpdateChecker
                 config = new Config();
                 config.StartWithWindows = false;
                 config.Timer = false;
-                config.UpdateInterval = 0;
+                config.UpdateInterval = 1;
 
                 FileHandler.Save("config.data", config);
             }
@@ -86,13 +89,18 @@ namespace UpdateChecker
                 timerAutoUpdate.Interval = TimeSpan.FromMinutes(config.UpdateInterval);
                 timerAutoUpdate.IsEnabled = true;
                 timerAutoUpdate.Tick += TimerAutoUpdate_Tick;
+
+                SetTimeRemainingImage(true);
+                labelTimeRemaining.Content = config.UpdateInterval;
             }
             else
             {
                 timerAutoUpdate = null;
+                SetTimeRemainingImage(false);
+                labelTimeRemaining.Content = "";
             }
         }
-
+        
         private void ConfigMinimizeToTray()
         {
             notifyIcon = new NotifyIcon();
@@ -113,7 +121,7 @@ namespace UpdateChecker
         {
             Check();
         }
-
+        
         #endregion
 
         #region GUI
@@ -139,6 +147,20 @@ namespace UpdateChecker
         private void SetUpdateDate(string date)
         {
             labelInfo.Content = date;
+        }
+
+        private void SetTimeRemainingImage(bool need)
+        {
+            if (need)
+            {
+                timeRemainingImage.Source = new Uri("Resources/hourglass.png", UriKind.Relative);
+                timeRemainingImage.Play();
+            }
+            else
+            {
+                timeRemainingImage.Source = null;
+                timeRemainingImage.Stop();
+            }
         }
 
         private void SetLoadingImage(bool need)

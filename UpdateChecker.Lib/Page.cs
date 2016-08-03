@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace UpdateChecker.Lib
 {
     [Serializable]
-    class Page
+    public class Page
     {
         public Page(DateTime date, string url, string pageHtml)
         {
