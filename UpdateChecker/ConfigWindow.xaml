@@ -5,17 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UpdateChecker"
         mc:Ignorable="d"
-        Title="Config" Height="171.007" Width="252.667" WindowStyle="None" ResizeMode="NoResize" MouseDown="Window_MouseDown">
+        Title="Config" Height="154.34" Width="252.667" WindowStyle="None" ResizeMode="NoResize" MouseDown="Window_MouseDown">
     <Grid>
         <Button x:Name="buttonClose" Style="{StaticResource ResourceKey=buttonStyle}" Focusable="False" HorizontalAlignment="Left" Margin="207,0,0,0" VerticalAlignment="Top" Width="46" Height="22" Click="buttonClose_Click"/>
-        <Label x:Name="label" Content="Update time" Margin="26,122,0,0" VerticalAlignment="Top" FontFamily="Roboto" FontSize="14" Foreground="#FF474747" HorizontalAlignment="Left"/>
-        <Label x:Name="label2" Content="Start with Windows" Margin="27,42,0,0" VerticalAlignment="Top" FontFamily="Roboto" FontSize="14" Foreground="#FF474747" HorizontalAlignment="Left"/>
-        <Label x:Name="label3" Content="Minimize to tray" Margin="27,69,0,0" VerticalAlignment="Top" FontFamily="Roboto" FontSize="14" Foreground="#FF474747" HorizontalAlignment="Left"/>
-        <Label x:Name="label_Copy" Content="Auto update" Margin="26,96,0,0" VerticalAlignment="Top" FontFamily="Roboto" FontSize="14" Foreground="#FF474747" HorizontalAlignment="Left"/>
-        <CheckBox x:Name="checkBoxUpdate" Content="" Margin="0,102,50,0" VerticalAlignment="Top" BorderBrush="#FF558ABF" HorizontalAlignment="Right" RenderTransformOrigin="0,0.5" Unchecked="config_Changed" Checked="config_Changed"/>
-        <CheckBox x:Name="checkBoxStartWindows" Content="" Margin="0,48,49,0" VerticalAlignment="Top" BorderBrush="#FF558ABF" HorizontalAlignment="Right" RenderTransformOrigin="0,0.5" Checked="config_Changed" Unchecked="config_Changed"/>
-        <CheckBox x:Name="checkBoxMinimizeToTray" Content="" Margin="0,75,49,0" VerticalAlignment="Top" BorderBrush="#FF558ABF" HorizontalAlignment="Right" RenderTransformOrigin="0,0.5" Unchecked="config_Changed" Checked="config_Changed"/>
-        <TextBox x:Name="textBoxUpdateTime" Height="23" Margin="0,126,55,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="42" HorizontalAlignment="Right" BorderBrush="#FF558ABF" RenderTransformOrigin="0,0.5" TextChanged="config_Changed"/>
+        <Label x:Name="label" Content="Update time" Margin="32,98,0,0" VerticalAlignment="Top" FontFamily="Roboto" FontSize="14" Foreground="#FF474747" HorizontalAlignment="Left"/>
+        <Label x:Name="label2" Content="Start with Windows" Margin="32,47,0,0" VerticalAlignment="Top" FontFamily="Roboto" FontSize="14" Foreground="#FF474747" HorizontalAlignment="Left"/>
+        <Label x:Name="label_Copy" Content="Auto update" Margin="32,72,0,0" VerticalAlignment="Top" FontFamily="Roboto" FontSize="14" Foreground="#FF474747" HorizontalAlignment="Left"/>
+        <CheckBox x:Name="checkBoxUpdate" Content="" Margin="0,78,44,0" VerticalAlignment="Top" BorderBrush="#FF558ABF" HorizontalAlignment="Right" RenderTransformOrigin="0,0.5" Unchecked="config_Changed" Checked="config_Changed"/>
+        <CheckBox x:Name="checkBoxStartWindows" Content="" Margin="0,53,44,0" VerticalAlignment="Top" BorderBrush="#FF558ABF" HorizontalAlignment="Right" RenderTransformOrigin="0,0.5" Checked="config_Changed" Unchecked="config_Changed"/>
+        <TextBox x:Name="textBoxUpdateTime" Height="23" Margin="0,102,49,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="42" HorizontalAlignment="Right" BorderBrush="#FF558ABF" RenderTransformOrigin="0,0.5" TextChanged="config_Changed"/>
         <Label x:Name="labelTop" Content="Config" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FFBDBDBD" FontFamily="Roboto" FontSize="14" Width="111"/>
 
     </Grid>

@@ -12,9 +12,7 @@ namespace UpdateChecker.Lib
             WshShell shell = new WshShell();
             string shortcutAddress = Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "//" + fileName + ".lnk";
             IWshShortcut shortcut = (IWshShortcut)shell.CreateShortcut(shortcutAddress);
-            //shortcut.Description = fileName;
             shortcut.WorkingDirectory = Environment.CurrentDirectory;
-            //shortcut.Hotkey = "Ctrl+Shift+N";
             shortcut.TargetPath = Environment.CurrentDirectory + "//" + fileName + ".exe";
             shortcut.Save();
         }

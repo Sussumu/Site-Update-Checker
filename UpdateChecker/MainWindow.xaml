@@ -5,29 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UpdateChecker"
         mc:Ignorable="d"
-        Title="Update Checker" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Width="500" Height="269.842" WindowStyle="None" MouseDown="Window_MouseDown">
+        Title="Update Checker" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Width="500" Height="269.842" WindowStyle="None" MouseDown="Window_MouseDown" Icon="Resources/uc.ico">
     <Grid Background="White">
-        <TextBox x:Name="textUrl" HorizontalAlignment="Left" Height="23" Margin="66,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="401" Text="http://www.festivalsescdeinverno.com.br/" BorderBrush="#FF558ABF" Foreground="#FF4D4D4D" FontSize="14"/>
-        <Button x:Name="buttonCheck" Content="Check" HorizontalAlignment="Left" Margin="379,156,0,0" VerticalAlignment="Top" Width="88" Click="buttonCheck_Click" Height="28" Background="White" BorderBrush="#FF558ABF" Foreground="#FF474747" FontFamily="Roboto" FontSize="14" IsDefault="True"/>
-        <Label x:Name="labelResult" Content="" HorizontalAlignment="Left" Margin="83,194,0,0" VerticalAlignment="Top" Width="382" Foreground="#FF474747" BorderBrush="#00000000" FontSize="14" FontFamily="Roboto"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBox x:Name="textUrl" HorizontalAlignment="Left" Height="23" Margin="66,118,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="401" Text="http://www.festivalsescdeinverno.com.br/" BorderBrush="#FF558ABF" Foreground="#FF4D4D4D" FontSize="14" Grid.ColumnSpan="2"/>
+        <Button x:Name="buttonCheck" Content="Check" HorizontalAlignment="Left" Margin="129.204,156,0,0" VerticalAlignment="Top" Width="88" Click="buttonCheck_Click" Height="28" Background="White" BorderBrush="#FF558ABF" Foreground="#FF474747" FontFamily="Roboto" FontSize="14" IsDefault="True" Grid.Column="1"/>
+        <Label x:Name="labelResult" Content="" HorizontalAlignment="Left" Margin="83,194,0,0" VerticalAlignment="Top" Width="382" Foreground="#FF474747" BorderBrush="#00000000" FontSize="14" FontFamily="Roboto" Grid.ColumnSpan="2"/>
         <Label x:Name="labelUrl" Content="Site" HorizontalAlignment="Left" Margin="30,116,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF474747" FontFamily="Roboto" FontSize="14"/>
-        <Label x:Name="labelTitle" Content="UPDATE CHECKER" HorizontalAlignment="Left" Margin="154,49,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF474747" FontFamily="Roboto" FontSize="22"/>
+        <Label x:Name="labelTitle" Content="UPDATE CHECKER" HorizontalAlignment="Left" Margin="154,49,0,0" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FF474747" FontFamily="Roboto" FontSize="22" Grid.ColumnSpan="2"/>
         <Label x:Name="labelResult2" Content="Status: " HorizontalAlignment="Left" Margin="30,194,0,0" VerticalAlignment="Top" Width="53" Foreground="#FF474747" FontFamily="Roboto" FontSize="14"/>
-        <MediaElement x:Name="loadingImage" UnloadedBehavior="Manual" LoadedBehavior="Play" HorizontalAlignment="Left" Height="25" Margin="341,159,0,0" VerticalAlignment="Top" Width="25" Stretch="Uniform">
+        <MediaElement x:Name="loadingImage" UnloadedBehavior="Manual" LoadedBehavior="Play" HorizontalAlignment="Left" Height="25" Margin="91.204,159,0,0" VerticalAlignment="Top" Width="25" Stretch="Uniform" Grid.Column="1">
             <MediaElement.OpacityMask>
                 <ImageBrush ImageSource="Resources/loading.gif"/>
             </MediaElement.OpacityMask>
         </MediaElement>
-        <Button x:Name="buttonClose" Style="{StaticResource buttonStyle}" Focusable="False" HorizontalAlignment="Left" Margin="454,0,0,0" VerticalAlignment="Top" Width="46" Height="22" Click="buttonClose_Click">
+        <Button x:Name="buttonClose" Style="{StaticResource buttonStyle}" Focusable="False" HorizontalAlignment="Left" Margin="204.204,0,0,0" VerticalAlignment="Top" Width="46" Height="22" Click="buttonClose_Click" Grid.Column="1">
         </Button>
-        <Button x:Name="configButton" Style="{StaticResource buttonStyle}" HorizontalAlignment="Left" Margin="429,2,0,0" VerticalAlignment="Top" Width="22" Height="22" BorderThickness="0" Click="configButton_Click">
+        <Button x:Name="configButton" Style="{StaticResource buttonStyle}" HorizontalAlignment="Left" Margin="160.204,0,0,0" VerticalAlignment="Top" Width="22" Height="22" BorderThickness="0" Click="configButton_Click" Grid.Column="1">
             <Button.Background>
                 <ImageBrush ImageSource="Resources/config.png"/>
             </Button.Background>
         </Button>
-        <Label x:Name="labelInfo" Content="" HorizontalAlignment="Left" Margin="119,226,0,0" VerticalAlignment="Top" Width="341" Foreground="#FF474747" BorderBrush="#00000000" FontSize="14" FontFamily="Roboto"/>
+        <Label x:Name="labelInfo" Content="" HorizontalAlignment="Left" Margin="119,226,0,0" VerticalAlignment="Top" Width="341" Foreground="#FF474747" BorderBrush="#00000000" FontSize="14" FontFamily="Roboto" Grid.ColumnSpan="2"/>
         <Label x:Name="labelInfo2" Content="Last update:" HorizontalAlignment="Left" Margin="30,226,0,0" VerticalAlignment="Top" Width="89" Foreground="#FF474747" FontFamily="Roboto" FontSize="14"/>
         <Label x:Name="labelTop" Content="Update Checker" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FFBDBDBD" FontFamily="Roboto" FontSize="14" Width="111"/>
+        <Button x:Name="buttonMinimize" Style="{StaticResource buttonStyle}" Focusable="False" HorizontalAlignment="Left" Margin="182.204,0,0,0" VerticalAlignment="Top" Width="22" Height="22" Click="buttonMinimize_Click" Background="#FFB4DCDE" Grid.Column="1"/>
     </Grid>
 </Window>
     

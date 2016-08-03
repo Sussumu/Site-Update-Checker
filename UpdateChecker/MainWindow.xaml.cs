@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -12,6 +14,7 @@ namespace UpdateChecker
         Checker checker;
         DispatcherTimer timerAutoUpdate;
         Config config;
+        NotifyIcon notifyIcon;
 
         public MainWindow()
         {
@@ -19,7 +22,44 @@ namespace UpdateChecker
             checker = new Checker();
             
             LoadConfig();
+            ConfigMinimizeToTray();
         }
+        
+        private async void Check()
+        {
+            SetLoadingImage(true);
+            switch (await checker.Check(textUrl.Text))
+            {
+                case Status.FIRST_QUERY:
+                    SetStatus("First time requesting website.");
+                    SetStatusColor(System.Windows.Media.Color.FromRgb(196, 122, 79));
+                    break;
+                case Status.DIFFERENT:
+                    SetStatus("Requested website is different from the last one.");
+                    SetStatusColor(System.Windows.Media.Color.FromRgb(196, 122, 79));
+                    break;
+                case Status.CHANGED:
+                    SetStatus("Website has changed!");
+                    SetStatusColor(System.Windows.Media.Color.FromRgb(137, 176, 59));
+                    break;
+                case Status.NO_CHANGES:
+                    SetStatus("Website still the same.");
+                    SetStatusColor(System.Windows.Media.Color.FromRgb(30, 30, 30));
+                    break;
+                case Status.CONNECTION_ERROR:
+                    SetStatus("Error connecting to this page. Check your internet connection and try again.");
+                    SetStatusColor(System.Windows.Media.Color.FromRgb(130, 53, 43));
+                    break;
+                case Status.FILE_ERROR:
+                    SetStatus("Error saving or reading the page. Check your permissions for this folder.");
+                    SetStatusColor(System.Windows.Media.Color.FromRgb(130, 53, 43));
+                    break;
+            }
+            SetUpdateDate(DateTime.Now.ToString());
+            SetLoadingImage(false);
+        }
+
+        #region Config
 
         public void LoadConfig()
         {
@@ -30,7 +70,6 @@ namespace UpdateChecker
             {
                 config = new Config();
                 config.StartWithWindows = false;
-                config.MinimizeToTray = false;
                 config.Timer = false;
                 config.UpdateInterval = 0;
 
@@ -38,42 +77,6 @@ namespace UpdateChecker
             }
             ConfigTimer(config.Timer);
         }
-
-        private async void Check()
-        {
-            SetLoadingImage(true);
-            switch (await checker.Check(textUrl.Text))
-            {
-                case Status.FIRST_QUERY:
-                    SetStatus("First time requesting website.");
-                    SetStatusColor(Color.FromRgb(196, 122, 79));
-                    break;
-                case Status.DIFFERENT:
-                    SetStatus("Requested website is different from the last one.");
-                    SetStatusColor(Color.FromRgb(196, 122, 79));
-                    break;
-                case Status.CHANGED:
-                    SetStatus("Website has changed!");
-                    SetStatusColor(Color.FromRgb(137, 176, 59));
-                    break;
-                case Status.NO_CHANGES:
-                    SetStatus("Website still the same.");
-                    SetStatusColor(Color.FromRgb(30, 30, 30));
-                    break;
-                case Status.CONNECTION_ERROR:
-                    SetStatus("Error connecting to this page. Check your internet connection and try again.");
-                    SetStatusColor(Color.FromRgb(130, 53, 43));
-                    break;
-                case Status.FILE_ERROR:
-                    SetStatus("Error saving or reading the page. Check your permissions for this folder.");
-                    SetStatusColor(Color.FromRgb(130, 53, 43));
-                    break;
-            }
-            SetUpdateDate(DateTime.Now.ToString());
-            SetLoadingImage(false);
-        }
-        
-        #region Timer
 
         private void ConfigTimer(bool enabled)
         {
@@ -90,6 +93,22 @@ namespace UpdateChecker
             }
         }
 
+        private void ConfigMinimizeToTray()
+        {
+            notifyIcon = new NotifyIcon();
+            notifyIcon.Icon = new Icon("Resources/uc.ico");
+            notifyIcon.Visible = true;
+            notifyIcon.DoubleClick += delegate (object sender, EventArgs args)
+            {
+                Show();
+                WindowState = WindowState.Normal;
+            };
+        }
+
+        #endregion
+
+        #region Timer
+
         private void TimerAutoUpdate_Tick(object sender, EventArgs e)
         {
             Check();
@@ -99,12 +118,20 @@ namespace UpdateChecker
 
         #region GUI
 
+        protected override void OnStateChanged(EventArgs e)
+        {
+            if (WindowState == WindowState.Normal)
+                Hide();
+
+            base.OnStateChanged(e);
+        }
+
         private void SetStatus(string status)
         {
             labelResult.Content = status;
         }
 
-        private void SetStatusColor(Color color)
+        private void SetStatusColor(System.Windows.Media.Color color)
         {
             labelResult.Foreground = new SolidColorBrush(color);
         }
@@ -148,13 +175,16 @@ namespace UpdateChecker
             LoadConfig();
         }
 
+        private void buttonMinimize_Click(object sender, RoutedEventArgs e)
+        {
+            Hide();
+        }
+
         private void buttonClose_Click(object sender, RoutedEventArgs e)
         {
             Environment.Exit(0);
         }
-        
+
         #endregion
-
-
     }
 }
