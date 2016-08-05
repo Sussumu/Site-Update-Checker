@@ -8,7 +8,7 @@ namespace UpdateChecker
         {
             InitializeComponent();
 
-            labelMessage.Content = message;
+            labelMessage.Text = message;
         }
 
         private void buttonCheck_Click(object sender, RoutedEventArgs e)

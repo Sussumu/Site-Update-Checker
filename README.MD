@@ -14,10 +14,20 @@ I needed it to be notified when tickets for a show started to sell.
 
 ### Hey
 
+- .NET 4.5 required
 - Made in 11 hours according to WakaTime, so maybe it has some bugs
 - Compares HTML content only, sites with dynamic content change it every request for every different user
 - System tray icon doesn't disappear after closing the program. Looks like it is normal Windows behavior...
 
+### Changelog
+
+0.9.1
+- Auto update stops when website changes (no false positives anymore) and icon on system tray gets red
+- About window with credits inside
+- Minor tweaks
+
+0.9
+First release
 
 ### Credits
 

@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UpdateChecker"
         mc:Ignorable="d"
-        Title="InfoWindow" Height="179.592" Width="300" WindowStyle="None" ResizeMode="NoResize">
+        Title="InfoWindow" Height="206.939" Width="300" WindowStyle="None" ResizeMode="NoResize">
     <Grid>
         <Label x:Name="labelTop" Content="Info" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FFBDBDBD" FontFamily="Roboto" FontSize="14" Width="111"/>
-        <Button x:Name="buttonOk" Content="OK" HorizontalAlignment="Left" Margin="104,135,0,0" VerticalAlignment="Top" Width="88" Click="buttonCheck_Click" Height="28" Background="White" BorderBrush="#FF558ABF" Foreground="#FF474747" FontFamily="Roboto" FontSize="14" IsDefault="True"/>
-        <Label x:Name="labelMessage" Content="&gt;&gt; Message &lt;&lt;" HorizontalAlignment="Left" Margin="20,46,0,0" VerticalAlignment="Top" Height="84" Width="256"/>
+        <Button x:Name="buttonOk" Content="OK" HorizontalAlignment="Left" Margin="106,169,0,0" VerticalAlignment="Top" Width="88" Click="buttonCheck_Click" Height="28" Background="White" BorderBrush="#FF558ABF" Foreground="#FF474747" FontFamily="Roboto" FontSize="14" IsDefault="True"/>
+        <TextBlock x:Name="labelMessage" Text="&gt;&gt; Message &lt;&lt;" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="20,46,0,0" VerticalAlignment="Top" Height="112" Width="256"/>
 
     </Grid>
 </Window>
